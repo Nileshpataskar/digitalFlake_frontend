@@ -12,7 +12,7 @@ interface SidebarState {
 }
 
 const useSidebarStore = create<SidebarState>((set) => ({
-  activePage: "Category",
+  activePage: "Home",
   setActivePage: (page) => set({ activePage: page }),
 
   reload: false,

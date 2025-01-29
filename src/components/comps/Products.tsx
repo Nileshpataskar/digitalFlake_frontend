@@ -19,7 +19,6 @@ import { toast } from "sonner";
 import AddNewProduct from "../modal/AddNewProduct";
 import Image from "next/image";
 
-// Updated interface
 interface Product {
   _id: string;
   id: number;
@@ -27,8 +26,8 @@ interface Product {
   image?: string;
   price: number;
   status: string;
-  category: string; // Fixed structure
-  subCategory: string; // Fixed structure
+  category: string;
+  subCategory: string;
 }
 
 const Product = () => {
@@ -105,11 +104,11 @@ const Product = () => {
     <main className="w-full h-full flex flex-col items-center z-10">
       {/* Top bar */}
       {!isOverlayVisible && (
-        <div className="flex w-full justify-around pr-10">
+        <div className="flex w-full justify-between items-center px-4 sm:px-10">
           <span className="text-2xl flex items-center gap-4">
             <LayoutGrid size={30} /> <h1>Products</h1>
           </span>
-          <div className="relative w-[600px]">
+          <div className="relative w-[300px] sm:w-[600px]">
             <SearchIcon className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500" />
             <Input
               type="text"
@@ -128,8 +127,9 @@ const Product = () => {
         </div>
       )}
 
+      {/* Table */}
       {!isOverlayVisible && (
-        <div className="w-full px-10 mt-6">
+        <div className="w-full px-4 sm:px-10 mt-6 overflow-x-auto">
           <Table className="border border-gray-200 rounded-lg shadow-sm overflow-hidden">
             <TableHeader className="bg-gray-100">
               <TableRow>

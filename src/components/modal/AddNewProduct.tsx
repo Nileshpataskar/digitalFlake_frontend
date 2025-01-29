@@ -92,6 +92,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ product }) => {
       setSelectedImage(event.target.files[0]);
     }
   };
+
   const saveProduct = async () => {
     if (!productName) {
       alert("Please enter a product name.");
@@ -168,7 +169,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ product }) => {
       </div>
 
       {/* Form Fields */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Product Name */}
         <div>
           <label className="block mb-2 text-gray-600 text-lg">
@@ -257,7 +258,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ product }) => {
         <Button variant="outline" onClick={() => setIsOverlayVisible(false)}>
           Cancel
         </Button>
-        <Button onClick={saveProduct}>
+        <Button onClick={saveProduct} className="bg-digitalFlake hover:bg-digitalFlake rounded-3xl py-2 px-6">
           {product ? "Save Changes" : "Add Product"}
         </Button>
       </div>

@@ -101,12 +101,10 @@ const AddNewCategory: React.FC<AddNewCategoryProps> = ({ category }) => {
         </h1>
       </div>
 
-      <div className="flex items-start gap-8">
-        <span className="w-1/3">
+      <div className="flex flex-col md:flex-row gap-8">
+        <span className="w-full md:w-1/3">
           <div className="w-full">
-            <label className="block mb-2 text-gray-600 text-lg">
-              Category Name
-            </label>
+            <label className="block mb-2 text-gray-600 text-lg">Category Name</label>
             <Input
               type="text"
               value={categoryName}
@@ -114,8 +112,9 @@ const AddNewCategory: React.FC<AddNewCategoryProps> = ({ category }) => {
               className="w-full p-3 border rounded-md"
             />
           </div>
+
           {category && (
-            <div className="w-1/2">
+            <div className="w-full md:w-1/2 mt-4 md:mt-0">
               <label className="block mb-2 text-gray-600 text-lg">Status</label>
               <select
                 value={categoryStatus}
@@ -129,7 +128,7 @@ const AddNewCategory: React.FC<AddNewCategoryProps> = ({ category }) => {
           )}
         </span>
 
-        <div>
+        <div className="w-full md:w-1/2">
           <h2 className="text-lg text-gray-600 mb-2">Upload Image</h2>
           <div className="flex items-center gap-4">
             {selectedImage && (
@@ -138,7 +137,7 @@ const AddNewCategory: React.FC<AddNewCategoryProps> = ({ category }) => {
                 alt="Preview"
                 width={128}
                 height={128}
-                className="w-72 h-60 object-cover rounded-md border-2"
+                className="w-32 h-32 object-cover rounded-md border-2"
               />
             )}
             {!selectedImage && category?.image && (
@@ -147,13 +146,13 @@ const AddNewCategory: React.FC<AddNewCategoryProps> = ({ category }) => {
                 alt="Category"
                 width={288}
                 height={240}
-                className="w-72 h-60 object-cover rounded-md border-2"
+                className="w-32 h-32 object-cover rounded-md border-2"
               />
             )}
 
             <label
               htmlFor="file-upload"
-              className="w-52 h-40 flex flex-col items-center justify-center border-2 border-dashed rounded-md cursor-pointer"
+              className="w-40 h-40 flex flex-col items-center justify-center border-2 border-dashed rounded-md cursor-pointer"
             >
               <ImagePlus size={50} />
               Upload Category Image
@@ -177,7 +176,7 @@ const AddNewCategory: React.FC<AddNewCategoryProps> = ({ category }) => {
         >
           Cancel
         </Button>
-        <Button onClick={saveCategory}>
+        <Button onClick={saveCategory} className="bg-digitalFlake hover:bg-digitalFlake rounded-3xl py-2 px-6">
           {category ? "Save Changes" : "Add Category"}
         </Button>
       </div>

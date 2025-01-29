@@ -47,9 +47,7 @@ const AddNewSubCategory: React.FC<AddNewSubCategoryProps> = ({
             },
           }
         );
-
-        console.log("Response category: ", response.data.data);
-        setCategories(response.data.data); // Assuming response.data contains the list of categories
+        setCategories(response.data.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -109,7 +107,6 @@ const AddNewSubCategory: React.FC<AddNewSubCategoryProps> = ({
           }
         );
         setReload((prev) => !prev);
-
         toast("Subcategory edited successfully!");
       } else {
         // Add new subcategory
@@ -123,12 +120,9 @@ const AddNewSubCategory: React.FC<AddNewSubCategoryProps> = ({
             },
           }
         );
-        // alert("Subcategory added successfully!");
         setReload((prev) => !prev);
-  
         toast("Subcategory added successfully!");
       }
-
 
       setIsOverlayVisible(false);
     } catch (error) {
@@ -209,16 +203,16 @@ const AddNewSubCategory: React.FC<AddNewSubCategoryProps> = ({
               alt="Preview"
               width={128}
               height={128}
-              className="w-72 h-60 object-cover rounded-md border-2"
+              className="w-40 h-40 object-cover rounded-md border-2"
             />
           )}
           {!selectedImage && subcategory?.image && (
             <Image
               src={`https://digitalflake-backend-7yzm.onrender.com/${subcategory.image}`}
               alt="subcategory"
-          width={288}
-          height={240}
-              className="w-72 h-60 object-cover rounded-md border-2"
+              width={128}
+              height={128}
+              className="w-40 h-40 object-cover rounded-md border-2"
             />
           )}
 
@@ -248,7 +242,7 @@ const AddNewSubCategory: React.FC<AddNewSubCategoryProps> = ({
         >
           Cancel
         </Button>
-        <Button onClick={saveSubcategory}>
+        <Button onClick={saveSubcategory}  className="bg-digitalFlake hover:bg-digitalFlake rounded-3xl py-2 px-6">
           {subcategory ? "Save Changes" : "Add Subcategory"}
         </Button>
       </div>

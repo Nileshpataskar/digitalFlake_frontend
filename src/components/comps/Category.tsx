@@ -46,9 +46,7 @@ const Category = () => {
           },
         }
       );
-
-      console.log("Response category: ", response.data.data);
-      setCategories(response.data.data); // Assuming response.data contains the list of categories
+      setCategories(response.data.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -60,11 +58,11 @@ const Category = () => {
     );
 
     if (!confirmDelete) {
-      return; // If the user cancels, do nothing
+      return;
     }
 
     try {
-      const token = localStorage.getItem("token"); // Use token for authorization
+      const token = localStorage.getItem("token");
       const response = await axios.delete(
         `https://digitalflake-backend-7yzm.onrender.com/category/${id}`,
         {
@@ -75,19 +73,17 @@ const Category = () => {
       );
 
       if (response.status === 200) {
-        // Remove the deleted category from the state
         setCategories((prevCategories) =>
           prevCategories.filter((category) => category.id !== id)
         );
       } else {
-        console.error("Failed to delete category:", response.data);
         alert("Failed to delete category. Please try again.");
       }
 
       toast("Category deleted...");
     } catch (error) {
       console.error("Error deleting category:", error);
-      toast("Failed to delte category...");
+      toast("Failed to delete category...");
     } finally {
       setReload((prev) => !prev);
     }
@@ -104,18 +100,18 @@ const Category = () => {
 
   const handleEditClick = (category: Category) => {
     setEditCategoryData(category);
-    setIsOverlayVisible(true); // Show the modal or form to edit
+    setIsOverlayVisible(true);
   };
 
   return (
-    <main className="w-full h-full flex flex-col items-center z-10">
+    <main className="w-full h-full flex flex-col items-center z-10 px-4 md:px-8">
       {/* Top bar */}
       {!isOverlayVisible && (
-        <div className="flex w-full justify-around pr-10">
-          <span className="text-2xl flex items-center gap-4">
+        <div className="flex flex-col md:flex-row w-full justify-between items-center mb-6">
+          <span className="text-2xl flex items-center gap-4 mb-4 md:mb-0">
             <LayoutGrid size={30} /> <h1>Category</h1>
           </span>
-          <div className="relative w-[600px]">
+          <div className="relative w-full sm:w-[600px] md:w-[500px]">
             <SearchIcon className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500" />
             <Input
               type="text"
@@ -125,19 +121,20 @@ const Category = () => {
           </div>
           <Button
             onClick={handleAddNewClick}
-            className="bg-digitalFlake hover:bg-digitalFlake/90 text-lg rounded-3xl"
+            className="bg-digitalFlake hover:bg-digitalFlake/90 text-lg rounded-3xl mt-4 md:mt-0"
           >
             Add New
           </Button>
         </div>
       )}
 
+      {/* Categories table */}
       {!isOverlayVisible && (
-        <div className="w-full px-10 mt-6">
+        <div className="w-full px-2 mt-6 overflow-x-auto">
           <Table className="border border-gray-200 rounded-lg shadow-sm overflow-hidden">
             <TableHeader className="bg-gray-100">
               <TableRow>
-                <TableHead className="w-[50px] text-left font-semibold text-gray-600">
+                <TableHead className="text-left font-semibold text-gray-600">
                   ID
                 </TableHead>
                 <TableHead className="text-left font-semibold text-gray-600">
@@ -174,7 +171,7 @@ const Category = () => {
                         src={
                           category?.image
                             ? `https://digitalflake-backend-7yzm.onrender.com/${category.image}`
-                            : "https://rakanonline.com/wp-content/uploads/2022/08/default-product-image.png" // Replace with your actual placeholder image
+                            : "https://rakanonline.com/wp-content/uploads/2022/08/default-product-image.png" // Placeholder image
                         }
                         alt={category.name}
                         width={96}
@@ -205,7 +202,6 @@ const Category = () => {
                         <button
                           className="p-2 text-red-500 hover:bg-red-50 rounded-full transition duration-200"
                           title="Delete"
-
                           onClick={() => deleteCategory(category._id)}
                         >
                           <Trash2 size={20} />
