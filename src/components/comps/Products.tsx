@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import AddNewProduct from "../modal/AddNewProduct";
 import Image from "next/image";
 
+// Updated interface
 interface Product {
   _id: string;
   id: number;
@@ -26,17 +27,15 @@ interface Product {
   image?: string;
   price: number;
   status: string;
-  categoryId: string;
-  subcategoryId: string;
+  category: string; // Fixed structure
+  subCategory: string; // Fixed structure
 }
 
 const Product = () => {
   const { isOverlayVisible, setIsOverlayVisible, reload, setReload } =
     useSidebarStore();
   const [products, setProducts] = useState<Product[]>([]);
-  const [editProductData, setEditProductData] = useState<
-    Product | null | undefined
-  >(null);
+  const [editProductData, setEditProductData] = useState<Product | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   const fetchProducts = async () => {
@@ -45,47 +44,37 @@ const Product = () => {
       const response = await axios.get(
         "https://digitalflake-backend-7yzm.onrender.com/product",
         {
-          headers: {
-            Authorization: ` ${token}`,
-          },
+          headers: { Authorization: ` ${token}` },
         }
       );
 
-      console.log("Response products: ", response.data.data);
+      console.log("Fetched Products:", response.data.data);
       setProducts(response.data.data);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
 
-  const deleteProduct = async (id: number) => {
+  const deleteProduct = async (_id: string) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this product?"
     );
 
-    if (!confirmDelete) {
-      return;
-    }
+    if (!confirmDelete) return;
 
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(
-        `https://digitalflake-backend-7yzm.onrender.com/product/${id}`,
+      await axios.delete(
+        `https://digitalflake-backend-7yzm.onrender.com/product/${_id}`,
         {
-          headers: {
-            Authorization: ` ${token}`,
-          },
+          headers: { Authorization: ` ${token}` },
         }
       );
 
-      if (response.status === 200) {
-        setProducts((prevProducts) =>
-          prevProducts.filter((product) => product.id !== id)
-        );
-        toast("Product deleted successfully!");
-      } else {
-        toast("Failed to delete product. Please try again.");
-      }
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product._id !== _id)
+      );
+      toast("Product deleted successfully!");
     } catch (error) {
       console.error("Error deleting product:", error);
       toast("Failed to delete product.");
@@ -99,7 +88,7 @@ const Product = () => {
   }, [reload]);
 
   const handleAddNewClick = () => {
-    setEditProductData(undefined);
+    setEditProductData(null);
     setIsOverlayVisible(true);
   };
 
@@ -185,7 +174,7 @@ const Product = () => {
                     <TableCell className="py-4 px-4">
                       <Image
                         src={
-                          product?.image
+                          product.image
                             ? `https://digitalflake-backend-7yzm.onrender.com/${product.image}`
                             : "https://rakanonline.com/wp-content/uploads/2022/08/default-product-image.png"
                         }
@@ -196,10 +185,10 @@ const Product = () => {
                       />
                     </TableCell>
                     <TableCell className="py-4 px-4 text-gray-700 text-lg">
-                      {product.categoryId}
+                      {product.category || "N/A"}
                     </TableCell>
                     <TableCell className="py-4 px-4 text-gray-700 text-lg">
-                      {product.subcategoryId}
+                      {product.subCategory || "N/A"}
                     </TableCell>
                     <TableCell className="py-4 px-4 text-gray-700 capitalize text-lg">
                       <span
@@ -224,7 +213,7 @@ const Product = () => {
                         <button
                           className="p-2 text-red-500 hover:bg-red-50 rounded-full transition duration-200"
                           title="Delete"
-                          onClick={() => deleteProduct(product.id)}
+                          onClick={() => deleteProduct(product._id)}
                         >
                           <Trash2 size={20} />
                         </button>
@@ -247,7 +236,7 @@ const Product = () => {
         </div>
       )}
 
-      {isOverlayVisible && <AddNewProduct product={editProductData ?? null} />}
+      {isOverlayVisible && <AddNewProduct product={editProductData} />}
     </main>
   );
 };

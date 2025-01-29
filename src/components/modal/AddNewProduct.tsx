@@ -109,8 +109,8 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ product }) => {
     try {
       const formData = new FormData();
       formData.append("name", productName);
-      formData.append("category", selectedCategory);
-      formData.append("subCategory", selectedSubcategory);
+      formData.append("category", selectedCategory); // Convert to JSON string
+      formData.append("subCategory", selectedSubcategory); // Convert to JSON string
       if (selectedImage) {
         formData.append("image", selectedImage);
       }
