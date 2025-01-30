@@ -5,7 +5,6 @@ import Homepage from "@/components/comps/Homepage";
 import Products from "@/components/comps/Products";
 import SubCategory from "@/components/comps/SubCategory";
 import AppSidebar from "@/components/sections/AppSidebar";
-import useAuthStore from "@/lib/store/authStore";
 import useSidebarStore from "@/lib/store/sidebarStore";
 import { useRouter } from "next/navigation"; // To handle redirection after logout
 import React, { useEffect } from "react";

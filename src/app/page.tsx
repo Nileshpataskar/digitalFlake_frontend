@@ -21,7 +21,7 @@ const Page = () => {
     }
   }, [router, setToken]);
 
-  return <div>hi</div>;
+  return <div className="w-full h-full animate-pulse tex text-3xl text-center">Loading... </div>;
 };
 
 export default Page;
