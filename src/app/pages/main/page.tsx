@@ -12,16 +12,16 @@ import React, { useEffect } from "react";
 
 const MainPage = () => {
   const router = useRouter();
-  const token = useAuthStore();
 
   useEffect(() => {
-    console.log("Token :", token);
+    const token = localStorage.getItem("token");
+
     if (!token) {
       router.push("/pages/login"); // Redirect to the login page if not logged in
     } else {
       router.push("/pages/main");
     }
-  }, [router, token]);
+  }, [router]);
 
   const { activePage, setActivePage } = useSidebarStore(); // Track the selected page
 

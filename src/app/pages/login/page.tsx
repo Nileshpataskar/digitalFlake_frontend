@@ -62,8 +62,8 @@ const Page = () => {
   };
 
   return (
-    <div className="flex h-full w-screen bg-gradient-to-br from-purple-300 to-indigo-100 relative justify-center items-center ">
-      <div className="bg-white shadow-lg rounded-lg p-8 sm:p-20 sm:m-20 w-fit sm:w-fit ">
+    <div className="flex h-screen w-screen bg-gradient-to-br from-purple-300 to-indigo-100 relative justify-center items-center overflow-hidden ">
+      <div className="bg-white shadow-lg rounded-lg p-8 sm:p-20 w-fit sm:w-fit ">
         <div className="flex flex-col items-center mb-6">
           <Image
             src={"/assets/logo.svg"}
